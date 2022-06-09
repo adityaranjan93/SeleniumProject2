@@ -1,0 +1,186 @@
+Test NG - Test New generation - is a unit testing framework
+in other form this is also called  TDD framework - Test Driven Development
+
+purpose - design test cases in a systematic way
+open source, free
+available in form of JAR files
+also called java unit testing framework
+generates good html report
+different annotations
+--priorities/sequences
+--dependencies (one test case dependent on another)
+--grouping
+--data provider (very imp and must to use - can automate multiple users and passwords)
+
+
+
+Junit and TestNG - Java
+each and every languages have their own testing framework
+
+Annotation: denoted by @
+each and every annotation should be associated by a method.
+
+Number given below denotes the precedence - like which annotation would be executed first
+
+Pre-conditions annotations - start with Before
+@BeforeSuite 1
+@BeforeTest 2
+@BeforeClass 3
+
+@BeforeMethod 4 
+Test case
+@Test -- start with test 5
+
+Post-conditions annotations --start with After
+@AfterMethod 6
+@AfterClass 7
+@AfterTest 8
+@AfterSuite 9
+
+@BeforeMethod (will execute immediately before the test)-> @Test -> @AfterMethod (execute immediately after the test)=> sequence; pair
+
+No need for main class in test ng. Test NG will execute the class without main method
+
+
+if multiple test cases are there / @test
+then for every test run - BeforeMethod and AfterMethod will execute
+--> beforemethod -> test 1 -> afterethod
+--> beforemethod -> test 2 -> aftermethod
+
+before and after method - declared only once but executed everytime with every test
+
+now if no priority is given, system can print /execute the test case randomly
+
+-----------------------
+for grouping : use groups keyword
+@Test(groups="group_name")
+
+for dependencies > use "dependson" keywords
+Here one test case depends on other. 
+Lets say we have 2 test cases - test case 1, test case 2. If we want that test case 2
+should only be executed if test case 1 is passed then we need to add the dependency on test case 2
+i.e test case 2 is dependent on test case 1 and will be ignored if test case 1 fails.
+
+------------------------------------------------
+Now if we have an infinite loop/ anywhere due to a reason, the test case is taking more time, 
+we can set the timeout as
+@Test(timeout=2000) or Test(invocationTimeout = 2000)//in milliseconds. Means if the test case 
+takes more than 2 seconds, it will throw an error/ NOT sure whether to use timeout/invocation time out.
+
+In this case if we want to give specify/handle the exception, so that our test case won't fail we use
+@Test(invocationTimeOut=2, expectedExceptions= ExceptionName.class)//keyword: expectedException
+eg: @Test(invocationTimeOut=2, expectedExceptions= NumberFormatException.class)
+
+
+-------------------------------------
+now since when all test classes are ready, to run the test we go to each class and run the test. But if we
+have 100 classes and we want to run them all, we cannot run each and every class manually. FOr this
+we create a new xml file, generally named as testng.xml.
+Specify suite, test, classes there and run as TestNG. All the classed that you have mentioned in XML
+will be executed
+
+--------------------
+to see reports - refresh the project and in test output folder - open index.html
+----------------------------------------
+Environment variables : data which remains same throughout the program execution
+eg: url, username, browser etc
+can be defined in testng.xml/config.property
+must be there 
+-----------------------------------
+XML file
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name ="TestNG practise automation suite">
+	<test name ="TestNG practise testcases">
+		<classes>
+			<class name="testngproject.ExpectedExceptionTest"/>
+			<class name="testngproject.GoogleLaunchTest"/>
+			<class name="testngproject.TestAssertion"/>
+			<class name="testngproject.TestNgAnnotationDisplay"/>
+		
+		</classes>
+	
+	</test>
+</suite>
+------------------------------------------------------
+
+Handle date picker :
+
+using sendKeys and Keys.TAB
+OR
+1. select the date to be selected and store in a string: String date ="8-September-2019"
+2. Split the date in an array : date.split("-");
+3. Store each element in array in separate variable.
+4. make a pattern to see : row and column
+5. Store before xpath and after xpath in separate strings.
+6. 2 for loops: outer for rows 2 to 7 - > inner 1 to 7 : for columns
+7. get text and see if the value is equal to day. If yes, perform click and break the inner loop.
+8. To break outer loop use a flag which can se bet to true/false
+
+
+---------------------------------
+POM design pattern notes:
+
+Every page - single class
+has collection of web objects/elements and methods.
+
+also called as Object Repository - a place with collection of objects is an Object repository.
+
+These page classes are also called page libraries.
+
+Maven:
+Powerful Build tool
+Create maven project. We need to use many libraries/API like apache poi, report, test ng etc. for this
+what we normally do is to download them and add it in our project manually. Maven automates this process.
+In Pom.xml just add the dependencies for each. Maven will automatically download it.
+
+Build is taken care by maven. thts why it is a build automation tool.
+
+
+src/main/java - all files like page libraries, utility files etc
+src/test/java - only test cases - in test NG
+--------------
+free crm:
+adityaranjan91.ar@gmail.com
+Aditya@1234
+
+shortcut to import - cntrl shift O
+
+Exceptions faced:
+org.testng.TestNGException: sun.security.provider.certpath.SunCertPathBuilderException
+>>unable to parse xml proper: FIX - use: <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+org.openqa.selenium.SessionNotCreatedException: selenium run by older browser driver 
+-----------------------------------------------------------
+@CacheLookup
+New annotation in PageFactory. It helps in storing the webelement locator in a cache so that whenever
+we use the ref variable for webelement, rather than directly interacting with dom, it takes the 
+locator from cache memory. This increases the performance of the script and makes detecting the locator faster.
+
+This annotation should be only provided only when we are sure that the particular element does not change in DOM.
+But if the element gets refreshed or the DOM changes, then the Cache memory will get corrupt and we will face
+StaleElementException in runtime.
+
+@FindBy(xpath="//div[contains(text(), 'Deals Summary')]")
+@CacheLookup
+WebElement deal_summary_label;
+
+Data Driven : data stored in a sheet/xl file and from code we read the data in to our script and use them
+WorkBook, getRow(), getLastCellNum()
+
+-----------------------------------------------------------
+WebDriver Fire Event - generate good selenium logs
+by implementing WebDriverEventListener interface  - generate set of methods for every action been performed using selenium
+
+in base class create object of : new EventFiringWebDriver(driver)
+
+
+----------------------------------------------
+https://www.quora.com/Can-we-run-group-of-test-cases-using-TestNG
+
+----------------------------------------
+Success Percentage
+For example: @Test(successPercentage=60, invocationCount=5), in this annotation success percentage is 60% 
+and invocation count is 5, that means out of 5 times if at least 3 times ((⅗)*100= 60) the test method gets passed, 
+it would be considered as passed.
+

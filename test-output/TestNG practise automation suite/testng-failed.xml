@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TestNG practise automation suite]">
+  <test thread-count="5" name="TestNG practise testcases(failed)">
+    <parameter name="password" value=""/>
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://www.facebook.com/"/>
+    <parameter name="username" value="adirocks977@yahoo.com"/>
+    <classes>
+      <class name="testngproject.FacebookLogin">
+        <methods>
+          <include name="closeBrowser"/>
+          <include name="facebookLogin" invocation-numbers="0"/>
+          <include name="launchChrome"/>
+        </methods>
+      </class> <!-- testngproject.FacebookLogin -->
+    </classes>
+  </test> <!-- TestNG practise testcases(failed) -->
+</suite> <!-- Failed suite [TestNG practise automation suite] -->
