@@ -36,6 +36,7 @@ public class DynamicXpath {
 		  System.out.println("Pass");
 		else System.out.println("Fail");
 		
+		System.out.println("SimplyPrinting");
 		
 		driver.quit();
 		
